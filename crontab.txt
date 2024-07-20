@@ -1,0 +1,1 @@
+0 7 * * * curl http://localhost:5000/send_daily_email
