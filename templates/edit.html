@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Highlight</title>
+</head>
+<body>
+    <h1>Edit Highlight</h1>
+    <form action="/edit/{{ index }}" method="post">
+        <textarea name="highlight" rows="4" cols="50">{{ highlight }}</textarea><br>
+        <button type="submit">Save Highlight</button>
+    </form>
+    <a href="/">Back to Highlights</a>
+</body>
+</html>
