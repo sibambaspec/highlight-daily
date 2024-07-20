@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Import and Edit Highlights</title>
+    <title>Highlights</title>
 </head>
 <body>
-    <h1>Import and Edit Highlights</h1>
-    <form action="/submit" method="post">
-        <textarea name="highlight" rows="4" cols="50" placeholder="Enter a highlight"></textarea><br>
-        <button type="submit">Submit Highlight</button>
+    <h1>Highlights</h1>
+    <form action="/add" method="post">
+        <textarea name="highlight" rows="4" cols="50" placeholder="Enter a new highlight"></textarea><br>
+        <button type="submit">Add Highlight</button>
     </form>
-    <h2>Highlights</h2>
     <ul>
-        {% for index, highlight in enumerate(highlights) %}
+        {% for highlight in highlights %}
         <li>
-            {{ highlight }} 
-            <a href="/edit/{{ index }}">Edit</a>
-            <a href="/delete/{{ index }}">Delete</a>
+            {{ highlight }} <a href="/edit/{{ loop.index0 }}">Edit</a>
         </li>
         {% endfor %}
     </ul>
