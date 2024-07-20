@@ -1,3 +1,4 @@
+
 # Use the official Python image from the Docker Hub
 FROM python:3.9
 
@@ -9,6 +10,9 @@ COPY . /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
 # Install cron
 RUN apt-get update && apt-get install -y cron
@@ -25,8 +29,5 @@ RUN crontab /etc/cron.d/daily_email
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
-
-# Run the command on container startup
-CMD cron && python highlights_emailer.py
+# Run the application
+CMD cron && python app.py
