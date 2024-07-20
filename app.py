@@ -1,9 +1,10 @@
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 import random
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect
 
 app = Flask(__name__)
 
@@ -54,19 +55,29 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    highlight = request.form['highlight']
+    new_highlight = request.form['highlight']
     highlights = load_highlights()
-    highlights.append(highlight.strip())
+    highlights.append(new_highlight.strip())
     save_highlights(highlights)
-    return redirect(url_for('index'))
+    return redirect('/')
+
+@app.route('/edit/<int:index>', methods=['GET', 'POST'])
+def edit(index):
+    highlights = load_highlights()
+    if request.method == 'POST':
+        updated_highlight = request.form['highlight']
+        highlights[index] = updated_highlight.strip()
+        save_highlights(highlights)
+        return redirect('/')
+    return render_template('edit.html', highlight=highlights[index], index=index)
 
 @app.route('/delete/<int:index>')
 def delete(index):
     highlights = load_highlights()
-    if 0 <= index < len(highlights):
-        del highlights[index]
-    save_highlights(highlights)
-    return redirect(url_for('index'))
+    if index < len(highlights):
+        highlights.pop(index)
+        save_highlights(highlights)
+    return redirect('/')
 
 @app.route('/send_daily_email')
 def send_daily_email():
