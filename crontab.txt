@@ -1,2 +1,2 @@
-0 2 * * * curl http://localhost:5000/send_daily_email
+0 3 * * * curl http://localhost:5000/send_daily_email
 
